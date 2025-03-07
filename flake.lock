@@ -1,0 +1,115 @@
+{
+  "nodes": {
+    "flake-compat": {
+      "locked": {
+        "lastModified": 1733328505,
+        "narHash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU=",
+        "rev": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+        "revCount": 69,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/edolstra/flake-compat/1.1.0/01948eb7-9cba-704f-bbf3-3fa956735b52/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1740872218,
+        "narHash": "sha256-ZaMw0pdoUKigLpv9HiNDH2Pjnosg7NBYMJlHTIsHEUo=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "3876f6b87db82f33775b1ef5ea343986105db764",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "mediatek-fw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739528013,
+        "narHash": "sha256-Hbsn2bnhQD3R/btpjbzpQfHCyevFOvdDTewHZInOL0E=",
+        "owner": "openwrt",
+        "repo": "mt76",
+        "rev": "e5fef138524e63314cb96ff8314048d175294e95",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openwrt",
+        "repo": "mt76",
+        "type": "github"
+      }
+    },
+    "nixpkcs": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1734852447,
+        "narHash": "sha256-ptKPBoHMgKQ8Ss39Rrp/4VcPKcT9lgmCiJu0Mj27yCQ=",
+        "owner": "numinit",
+        "repo": "nixpkcs",
+        "rev": "db33ae0dbc65f2f357bb9328295bf0a69054bbef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numinit",
+        "ref": "v1.1",
+        "repo": "nixpkcs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1741163929,
+        "narHash": "sha256-vOz5yVPTXJwvefezUrSbWRm5TKTK775kK2XbxeS3iL0=",
+        "owner": "numinit",
+        "repo": "nixpkgs",
+        "rev": "b280485ab867240255933d14bb6dc367557cd2f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numinit",
+        "ref": "kismet/add-module",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1740872140,
+        "narHash": "sha256-3wHafybyRfpUCLoE8M+uPVZinImg3xX+Nm6gEfN3G8I=",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/6d3702243441165a03f699f64416f635220f4f15.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/6d3702243441165a03f699f64416f635220f4f15.tar.gz"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "flake-parts": "flake-parts",
+        "mediatek-fw": "mediatek-fw",
+        "nixpkcs": "nixpkcs",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
