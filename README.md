@@ -1,6 +1,6 @@
 # MeshOS
 
-Welcome to Planet Nix 2025 attendees! **This repository is experimental, and all APIs are subject to change.**
+**This repository is experimental, and all APIs are subject to change.**
 
 Current goals:
 
