@@ -1,9 +1,9 @@
 {
   description = "Fetch derivations from your friends.";
   inputs = {
-    nixpkgs.url = "github:numinit/nixpkgs/kismet/add-module";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkcs = {
-      url = "github:numinit/nixpkcs/v1.1";
+      url = "github:numinit/nixpkcs/v1.2";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -11,10 +11,6 @@
     };
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    mediatek-fw = {
-      url = "github:openwrt/mt76";
-      flake = false;
-    };
   };
 
   outputs =
@@ -64,18 +60,7 @@
           };
 
           overlayAttrs = {
-            tpm2-pkcs11 = pkgs.tpm2-pkcs11.override {
-              abrmdSupport = true;
-            };
-            ncps = pkgs.ncps.overrideAttrs (prevPkg: {
-              # Need to patch this to avoid a crash with how we're using ncps.
-              patches = prevPkg.patches or [ ] ++ [
-                (pkgs.fetchpatch {
-                  url = "https://github.com/kalbasit/ncps/pull/193.patch";
-                  hash = "sha256-AAsBplZLKptnEI1SglUwOyqOOlpJ5+3cD3kmwN4h9V8=";
-                })
-              ];
-            });
+            # nothing
           };
 
           checks = {

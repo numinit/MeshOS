@@ -19,32 +19,16 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1740872218,
-        "narHash": "sha256-ZaMw0pdoUKigLpv9HiNDH2Pjnosg7NBYMJlHTIsHEUo=",
+        "lastModified": 1751413152,
+        "narHash": "sha256-Tyw1RjYEsp5scoigs1384gIg6e0GoBVjms4aXFfRssQ=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "3876f6b87db82f33775b1ef5ea343986105db764",
+        "rev": "77826244401ea9de6e3bac47c2db46005e1f30b5",
         "type": "github"
       },
       "original": {
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "mediatek-fw": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739528013,
-        "narHash": "sha256-Hbsn2bnhQD3R/btpjbzpQfHCyevFOvdDTewHZInOL0E=",
-        "owner": "openwrt",
-        "repo": "mt76",
-        "rev": "e5fef138524e63314cb96ff8314048d175294e95",
-        "type": "github"
-      },
-      "original": {
-        "owner": "openwrt",
-        "repo": "mt76",
         "type": "github"
       }
     },
@@ -58,53 +42,55 @@
         ]
       },
       "locked": {
-        "lastModified": 1734852447,
-        "narHash": "sha256-ptKPBoHMgKQ8Ss39Rrp/4VcPKcT9lgmCiJu0Mj27yCQ=",
+        "lastModified": 1752443306,
+        "narHash": "sha256-MXw9t6PzCxgGp+EcnLOyB5lio99sif52NCmyRKnwulE=",
         "owner": "numinit",
         "repo": "nixpkcs",
-        "rev": "db33ae0dbc65f2f357bb9328295bf0a69054bbef",
+        "rev": "276b1b786907c8148d16993b207b62657fef158e",
         "type": "github"
       },
       "original": {
         "owner": "numinit",
-        "ref": "v1.1",
+        "ref": "v1.2",
         "repo": "nixpkcs",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1741163929,
-        "narHash": "sha256-vOz5yVPTXJwvefezUrSbWRm5TKTK775kK2XbxeS3iL0=",
-        "owner": "numinit",
+        "lastModified": 1751984180,
+        "narHash": "sha256-LwWRsENAZJKUdD3SpLluwDmdXY9F45ZEgCb0X+xgOL0=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b280485ab867240255933d14bb6dc367557cd2f7",
+        "rev": "9807714d6944a957c2e036f84b0ff8caf9930bc0",
         "type": "github"
       },
       "original": {
-        "owner": "numinit",
-        "ref": "kismet/add-module",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1740872140,
-        "narHash": "sha256-3wHafybyRfpUCLoE8M+uPVZinImg3xX+Nm6gEfN3G8I=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/6d3702243441165a03f699f64416f635220f4f15.tar.gz"
+        "lastModified": 1751159883,
+        "narHash": "sha256-urW/Ylk9FIfvXfliA1ywh75yszAbiTEVgpPeinFyVZo=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "14a40a1d7fb9afa4739275ac642ed7301a9ba1ab",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/6d3702243441165a03f699f64416f635220f4f15.tar.gz"
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
       }
     },
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "mediatek-fw": "mediatek-fw",
         "nixpkcs": "nixpkcs",
         "nixpkgs": "nixpkgs"
       }

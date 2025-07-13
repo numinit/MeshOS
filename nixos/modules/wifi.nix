@@ -6,7 +6,7 @@
     Morgan Jones <me@numin.it>
 */
 
-{ mediatek-fw, ... }:
+{ ... }:
 
 {
   config,

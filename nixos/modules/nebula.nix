@@ -264,7 +264,7 @@ in
           keypairs.${cfg.networkName} = mkMerge [
             {
               enable = true;
-              inherit (pkgs.tpm2-pkcs11) pkcs11Module;
+              inherit (pkgs.tpm2-pkcs11.abrmd) pkcs11Module;
               id = mkDefault 1;
               keyOptions = {
                 algorithm = "EC";
