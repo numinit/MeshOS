@@ -67,179 +67,178 @@ let
   hostType = types.submodule (
     { config, name, ... }:
     {
-      options =
-        {
-          name = readOnly types.str name;
-          id = {
-            hex = readOnly types.str (substring 0 8 (hashString "sha256" name));
-            dec = readOnly types.ints.u32 (fromTOML "x = 0x${config.id.hex}").x;
-          };
+      options = {
+        name = readOnly types.str name;
+        id = {
+          hex = readOnly types.str (substring 0 8 (hashString "sha256" name));
+          dec = readOnly types.ints.u32 (fromTOML "x = 0x${config.id.hex}").x;
+        };
 
-          owner = mkOption {
-            type = types.str;
-            default = name;
-            description = "The username of the account who owns this node. Defaults to the node name.";
-          };
+        owner = mkOption {
+          type = types.str;
+          default = name;
+          description = "The username of the account who owns this node. Defaults to the node name.";
+        };
 
-          wifi = {
-            address = mkOption {
-              default = null;
-              type = with types; nullOr str;
-              description = "Address of the 802.11s mesh interface.";
-            };
+        wifi = {
+          address = mkOption {
+            default = null;
+            type = with types; nullOr str;
+            description = "Address of the 802.11s mesh interface.";
           };
+        };
 
-          nebula = {
-            address = mkOption {
-              default = null;
-              type = with types; nullOr net.types.ipv4;
-              description = "The IPv4 address on the Nebula network";
-            };
-            entryAddresses = mkOption {
-              default = [ ];
-              type = with types; listOf (either net.types.ipv4 net.types.ipv6);
-              description = "Nebula entry addresses, in descending priority order";
-            };
-            port = mkOption {
-              default = plan.nebula.portFor thisHost;
-              type = types.port;
-              description = "Set to the port for your Nebula router.";
-            };
-            isLighthouse = mkEnableOption "lighthouse";
-            isRelay = mkEnableOption "relay";
-            unsafeRoutes = mkOption {
-              default = [ ];
-              type =
-                with types;
-                listOf (submodule {
-                  options = {
-                    route = mkOption {
-                      type = net.types.cidrv4;
-                      description = "The subnet we should route to. Must be signed into the cert!";
-                    };
-                    metric = mkOption {
-                      type = with types; nullOr ints.u16;
-                      description = "The metric for this route";
-                      default = null;
-                    };
+        nebula = {
+          address = mkOption {
+            default = null;
+            type = with types; nullOr net.types.ipv4;
+            description = "The IPv4 address on the Nebula network";
+          };
+          entryAddresses = mkOption {
+            default = [ ];
+            type = with types; listOf (either net.types.ipv4 net.types.ipv6);
+            description = "Nebula entry addresses, in descending priority order";
+          };
+          port = mkOption {
+            default = null;
+            type = with types; nullOr port;
+            description = "Set to the port for your Nebula router.";
+          };
+          isLighthouse = mkEnableOption "lighthouse";
+          isRelay = mkEnableOption "relay";
+          unsafeRoutes = mkOption {
+            default = [ ];
+            type =
+              with types;
+              listOf (submodule {
+                options = {
+                  route = mkOption {
+                    type = net.types.cidrv4;
+                    description = "The subnet we should route to. Must be signed into the cert!";
                   };
-                });
-              description = "Additional subnets this router should be responsible for serving";
-            };
-            installDefaultRoute = mkOption {
-              default = false;
-              type = types.bool;
-              description = "True if we should create routes that route all traffic through Nebula.";
-            };
-            defaultRouteMetric = mkOption {
-              default = null;
-              type = with types; nullOr int;
-              description = "The metric for the default route.";
-            };
+                  metric = mkOption {
+                    type = with types; nullOr ints.u16;
+                    description = "The metric for this route";
+                    default = null;
+                  };
+                };
+              });
+            description = "Additional subnets this router should be responsible for serving";
           };
-
-          dns = {
-            addresses = mkOption {
-              type = with types; attrsOf (listOf str);
-              default = { };
-              description = "Map of IP addresses to lists of hostnames. Will be added to all nodes' hostfile.";
-            };
+          installDefaultRoute = mkOption {
+            default = false;
+            type = types.bool;
+            description = "True if we should create routes that route all traffic through Nebula.";
           };
+          defaultRouteMetric = mkOption {
+            default = null;
+            type = with types; nullOr int;
+            description = "The metric for the default route.";
+          };
+        };
 
-          ssh = {
-            hostKey = mkOption {
-              type = types.str;
-              default = null;
-              description = "The SSH host key, if known";
+        dns = {
+          addresses = mkOption {
+            type = with types; attrsOf (listOf str);
+            default = { };
+            description = "Map of IP addresses to lists of hostnames. Will be added to all nodes' hostfile.";
+          };
+        };
+
+        ssh = {
+          hostKey = mkOption {
+            type = types.str;
+            default = null;
+            description = "The SSH host key, if known";
+          };
+          port = mkOption {
+            type = types.port;
+            default = 22;
+            description = "The SSH port";
+          };
+        };
+
+        cache = {
+          server = {
+            priority = mkOption {
+              type = types.int;
+              default = 10;
+              description = "The cache server priority.";
             };
             port = mkOption {
               type = types.port;
-              default = 22;
-              description = "The SSH port";
+              default = 8501;
+              description = "The cache server port";
+            };
+            sets = mkOption {
+              type = with types; listOf str;
+              default = [ ];
+              description = "The sets this cache should provide.";
+            };
+            pubkey = mkOption {
+              type = with types; nullOr str;
+              default = null;
+              description = "The cache pubkey";
             };
           };
+          client = {
+            sets = mkOption {
+              type = with types; listOf str;
+              default = [ ];
+              description = "The sets this Nix instance should trust and fetch from.";
+            };
+          };
+        };
 
-          cache = {
+        /*
+          build = {
             server = {
-              priority = mkOption {
-                type = types.int;
-                default = 10;
-                description = "The cache server priority.";
+              system = mkOption {
+                type = types.str;
+                default = "x86_64-linux";
+                description = "This builder's system";
               };
-              port = mkOption {
-                type = types.port;
-                default = 8501;
-                description = "The cache server port";
+              sshUser = mkOption {
+                type = types.str;
+                default = "nixbld";
+                description = "The user for SSH";
+              };
+              maxJobs = mkOption {
+                type = types.int;
+                default = 1;
+                description = "The max jobs for this builder";
+              };
+              speedFactor = mkOption {
+                type = types.int;
+                default = 1;
+                description = "The speed factor for this builder";
+              };
+              supportedFeatures = mkOption {
+                type = with types; listOf str;
+                default = [
+                  "nixos-test"
+                  "big-parallel"
+                  "kvm"
+                  "benchmark"
+                ];
+                description = "Features this builder supports";
               };
               sets = mkOption {
                 type = with types; listOf str;
                 default = [ ];
-                description = "The sets this cache should provide.";
-              };
-              pubkey = mkOption {
-                type = with types; nullOr str;
-                default = null;
-                description = "The cache pubkey";
+                description = "The sets this builder should provide.";
               };
             };
             client = {
               sets = mkOption {
                 type = with types; listOf str;
                 default = [ ];
-                description = "The sets this Nix instance should trust and fetch from.";
+                description = "The sets we should use for builds.";
               };
             };
           };
-
-          /*
-            build = {
-              server = {
-                system = mkOption {
-                  type = types.str;
-                  default = "x86_64-linux";
-                  description = "This builder's system";
-                };
-                sshUser = mkOption {
-                  type = types.str;
-                  default = "nixbld";
-                  description = "The user for SSH";
-                };
-                maxJobs = mkOption {
-                  type = types.int;
-                  default = 1;
-                  description = "The max jobs for this builder";
-                };
-                speedFactor = mkOption {
-                  type = types.int;
-                  default = 1;
-                  description = "The speed factor for this builder";
-                };
-                supportedFeatures = mkOption {
-                  type = with types; listOf str;
-                  default = [
-                    "nixos-test"
-                    "big-parallel"
-                    "kvm"
-                    "benchmark"
-                  ];
-                  description = "Features this builder supports";
-                };
-                sets = mkOption {
-                  type = with types; listOf str;
-                  default = [ ];
-                  description = "The sets this builder should provide.";
-                };
-              };
-              client = {
-                sets = mkOption {
-                  type = with types; listOf str;
-                  default = [ ];
-                  description = "The sets we should use for builds.";
-                };
-              };
-            };
-          */
-        };
+        */
+      };
     }
   );
 
@@ -299,7 +298,7 @@ in
             basePort = 5000;
             modulo = 512;
           in
-          (basePort + (mod host.id.dec modulo))
+          if host.nebula.port == null then (basePort + (mod host.id.dec modulo)) else host.nebula.port
         );
 
         # The Nebula static host map, keyed by Nebula address.

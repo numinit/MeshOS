@@ -121,7 +121,7 @@ in
               host = if (hostCfg.nebula.host or null) != null then hostCfg.nebula.host else "[::]";
             in
             {
-              inherit (hostCfg.nebula) port;
+              port = plan.nebula.portFor hostCfg;
               inherit host;
             };
 

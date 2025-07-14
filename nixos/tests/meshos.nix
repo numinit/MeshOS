@@ -66,6 +66,8 @@ let
       dan = {
         wifi.address = "10.69.0.4/16";
         nebula = {
+          # Make sure that port overrides work.
+          port = 12345;
           address = "10.32.10.4";
           entryAddresses = [ "10.69.0.4" ];
         };
