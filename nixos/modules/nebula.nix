@@ -245,7 +245,7 @@ in
       }
     ))
 
-    (mkIf cfg.enable {
+    (mkIf (cfg.enable && cfg.tpm2Key != false) {
       # So we pass down PKCS#11 environment variables to Nebula.
       systemd.services."nebula@${cfg.networkName}" = {
         environment = config.nixpkcs.keypairs.${cfg.networkName}.extraEnv;
