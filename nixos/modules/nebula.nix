@@ -81,6 +81,14 @@ in
         type = types.bool;
         description = "True if we shouldn't route RFC1918 traffic through Nebula. This is the default.";
       };
+      staticMapNetwork = mkOption {
+        default = "ip4";
+        type = types.enum [ "ip" "ip4" "ip6" ];
+        description = ''
+          Use the specified IP versions for communicating with static map hosts. Defaults to IPv4.
+          See: https://nebula.defined.net/docs/config/static-map/
+        '';
+      };
     };
   };
   config = mkMerge [
@@ -148,7 +156,7 @@ in
           settings = {
             # Static host map. Use both IPv4 and v6 by default.
             static_map = {
-              network = mkDefault "ip";
+              network = mkDefault cfg.staticMapNetwork;
               lookup_timeout = mkDefault "5s";
             };
 
