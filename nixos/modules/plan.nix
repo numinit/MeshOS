@@ -286,9 +286,9 @@ in
           )
         );
 
-        # Routes for Nebula. Just all the unique unsafe routes.
+        # Routes for Nebula. Just all the unique unsafe routes plus the main subnet.
         routes = readOnly (types.listOf net.types.cidrv4) (
-          unique (singleton config.subnet ++ map (route: route.route) plan.nebula.unsafeRoutes)
+          unique (singleton plan.nebula.subnet ++ map (route: route.route) plan.nebula.unsafeRoutes)
         );
 
         # Gets a port for this host.
@@ -425,9 +425,15 @@ in
             '';
           };
         };
-        nebula.caBundle = mkOption {
-          type = types.path;
-          description = "The path to the Nebula CA bundle.";
+        nebula = {
+          subnet = mkOption {
+            type = net.types.cidrv4;
+            description = "The Nebula subnet";
+          };
+          caBundle = mkOption {
+            type = types.path;
+            description = "The path to the Nebula CA bundle.";
+          };
         };
       };
     };
