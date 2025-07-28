@@ -288,7 +288,7 @@ in
 
         # Routes for Nebula. Just all the unique unsafe routes plus the main subnet.
         routes = readOnly (types.listOf net.types.cidrv4) (
-          unique (singleton plan.nebula.subnet ++ map (route: route.route) plan.nebula.unsafeRoutes)
+          unique (singleton plan.constants.nebula.subnet ++ map (route: route.route) plan.nebula.unsafeRoutes)
         );
 
         # Gets a port for this host.
