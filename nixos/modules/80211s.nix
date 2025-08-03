@@ -120,6 +120,14 @@ in
                 mode and sharing its connection.
               '';
             };
+            metric = {
+              type = types.int;
+              default = 666;
+              description = ''
+                The metric. Set to something low by default so Network Manager takes priority. If you
+                are using scripted networking, try something higher.
+              '';
+            };
             aqm = {
               enable = mkOption {
                 description = ''
@@ -286,7 +294,7 @@ in
               {
                 Source = "0.0.0.0";
                 Destination = "0.0.0.0/0";
-                Metric = 666;
+                Metric = cfg.networks.${batdev}.metric;
               }
             ];
             extraConfig =

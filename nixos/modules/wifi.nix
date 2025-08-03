@@ -54,6 +54,13 @@ in
         in the list.
       '';
     };
+    networking.mesh.wifi.meshInterfaceName = mkOption {
+      default = "mesh2";
+      type = types.str;
+      description = ''
+        The name of the mesh interface. Defaults to `mesh2` (the layer-3 mesh is mesh3).
+      '';
+    };
     networking.mesh.wifi.sharedInternetDevice = mkOption {
       default = null;
       type = with types; nullOr str;
@@ -112,7 +119,7 @@ in
       exitDevice = cfg.sharedInternetDevice;
       uploadMbps = cfg.advertisedUploadMbps;
       downloadMbps = cfg.advertisedDownloadMbps;
-      networks.mesh2 = {
+      networks.${cfg.meshInterfaceName} = {
         aqm.enable = true;
         addressAndMask = hostCfg.wifi.address;
         routeToExits = cfg.useForFallbackInternetAccess;
