@@ -130,7 +130,7 @@ in
               "http://localhost:${toString hostCfg.cache.server.port}"
             ]))
           ];
-          trusted-public-keys = mkIf (!cfg.client.useHydra) && (!cfg.client.trustHydra) (mkForce [ ]);
+          trusted-public-keys = mkIf ((!cfg.client.useHydra) && (!cfg.client.trustHydra)) (mkForce [ ]);
           extra-trusted-public-keys = mkIf cfg.client.enable allMeshCachePubkeys;
         };
       };
