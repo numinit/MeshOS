@@ -424,6 +424,10 @@ in
               The file containing the password to use for the mesh network.
             '';
           };
+          subnet = mkOption {
+            type = net.types.cidrv4;
+            description = "The 802.11s mesh wi-fi subnet";
+          };
         };
         nebula = {
           subnet = mkOption {
