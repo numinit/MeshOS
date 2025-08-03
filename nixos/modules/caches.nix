@@ -71,6 +71,13 @@ in
             Configure Nix to connect to and trust https://cache.nixos.org. Default is true.
           '';
         };
+        trustHydra = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Configure Nix to trust https://cache.nixos.org. Default is true.
+          '';
+        };
         useRecommendedCacheSettings = mkOption {
           default = false;
           type = types.bool;
@@ -123,7 +130,7 @@ in
               "http://localhost:${toString hostCfg.cache.server.port}"
             ]))
           ];
-          trusted-public-keys = mkIf (!cfg.client.useHydra) (mkForce [ ]);
+          trusted-public-keys = mkIf (!cfg.client.useHydra) && (!cfg.client.trustHydra) (mkForce [ ]);
           extra-trusted-public-keys = mkIf cfg.client.enable allMeshCachePubkeys;
         };
       };
