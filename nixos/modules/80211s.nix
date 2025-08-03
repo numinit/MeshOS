@@ -120,7 +120,7 @@ in
                 mode and sharing its connection.
               '';
             };
-            metric = {
+            metric = mkOption {
               type = types.int;
               default = 666;
               description = ''
