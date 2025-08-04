@@ -165,6 +165,11 @@ let
               default = 10;
               description = "The cache server priority.";
             };
+            hostOverride = mkOption {
+              type = types.str;
+              default = with types; nullOr str;
+              description = "Overrides the host used for this cache server in client URLs.";
+            };
             port = mkOption {
               type = types.port;
               default = 8501;
@@ -377,11 +382,16 @@ in
                         ""
                       else
                         ":${toString host.cache.server.port}";
+                    chosenAddress =
+                      if host.cache.hostOverride == null then
+                        assert addressMatch != null;
+                        head addressMatch
+                      else
+                        host.cache.hostOverride;
                   in
-                  assert addressMatch != null;
                   "${
                     if host.cache.server.secure then "https" else "http"
-                  }://${head addressMatch}${portPart}?priority=${toString host.cache.server.priority}";
+                  }://${chosenAddress}${portPart}?priority=${toString host.cache.server.priority}";
               in
               optional (host.wifi.address or null != null) (mkUrl host.wifi.address)
               ++ optional (host.nebula.address or null != null) (mkUrl host.nebula.address)
