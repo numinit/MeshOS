@@ -383,11 +383,11 @@ in
                       else
                         ":${toString host.cache.server.port}";
                     chosenAddress =
-                      if host.cache.hostOverride == null then
+                      if host.cache.server.hostOverride == null then
                         assert addressMatch != null;
                         head addressMatch
                       else
-                        host.cache.hostOverride;
+                        host.cache.server.hostOverride;
                   in
                   "${
                     if host.cache.server.secure then "https" else "http"
