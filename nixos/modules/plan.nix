@@ -171,7 +171,7 @@ let
               description = "The cache server port";
             };
             secure = mkOption {
-              type = types.port;
+              type = types.bool;
               default = false;
               description = "True if this cache should use https";
             };
