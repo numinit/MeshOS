@@ -170,6 +170,11 @@ let
               default = 8501;
               description = "The cache server port";
             };
+            secure = mkOption {
+              type = types.port;
+              default = false;
+              description = "True if this cache should use https";
+            };
             sets = mkOption {
               type = with types; listOf str;
               default = [ ];
@@ -364,9 +369,19 @@ in
                   addressOrCidr:
                   let
                     addressMatch = match "^([^/]+)(/[0-9]+)?$" addressOrCidr;
+                    portPart =
+                      if
+                        host.cache.server.secure && host.cache.server.port == 443
+                        || !host.cache.server.secure && host.cache.server.port == 80
+                      then
+                        ""
+                      else
+                        ":${toString host.cache.server.port}";
                   in
                   assert addressMatch != null;
-                  "http://${head addressMatch}:${toString host.cache.server.port}?priority=${toString host.cache.server.priority}";
+                  "${
+                    if host.cache.server.secure then "https" else "http"
+                  }://${head addressMatch}${portPart}?priority=${toString host.cache.server.priority}";
               in
               optional (host.wifi.address or null != null) (mkUrl host.wifi.address)
               ++ optional (host.nebula.address or null != null) (mkUrl host.nebula.address)
