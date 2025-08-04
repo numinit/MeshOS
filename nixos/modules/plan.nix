@@ -166,8 +166,8 @@ let
               description = "The cache server priority.";
             };
             hostOverride = mkOption {
-              type = types.str;
-              default = with types; nullOr str;
+              type = with types; nullOr str;
+              default = null;
               description = "Overrides the host used for this cache server in client URLs.";
             };
             port = mkOption {
