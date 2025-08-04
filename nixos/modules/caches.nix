@@ -127,7 +127,9 @@ in
               otherMeshCacheURLs ++ optional cfg.client.useHydra "https://cache.nixos.org?priority=10"
             ))
             (mkIf (cfg.client.enable && cfg.server.enable) (mkForce [
-              "http://localhost:${toString hostCfg.cache.server.port}"
+              "${if hostCfg.cache.server.secure then "https" else "http"}://${
+                if hostCfg.cache.server.hostOverride == null then "localhost" else hostCfg.cache.server.hostOverride
+              }:${toString hostCfg.cache.server.port}"
             ]))
           ];
           trusted-public-keys = mkIf ((!cfg.client.useHydra) && (!cfg.client.trustHydra)) (mkForce [ ]);
