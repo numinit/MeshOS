@@ -148,6 +148,7 @@ in
                 port = "any";
                 proto = "any";
                 host = "any";
+                local_cidr = "any";
               }
             ];
             outbound = inbound;
@@ -266,7 +267,7 @@ in
     # Try to use a key in a TPM if we're asked to.
     (mkIf (cfg.tpm2Key != false) (mkMerge [
       {
-        nixpkcs = {
+        security.pkcs11 = {
           enable = true;
           tpm2.enable = true;
           keypairs.${cfg.networkName} = mkMerge [

@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkcs = {
-      url = "github:numinit/nixpkcs/v1.2";
+      url = "github:numinit/nixpkcs/v1.3";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -26,7 +26,7 @@
       ];
 
       flake = {
-        version = "0.6.0";
+        version = "0.6.1";
 
         # MeshOS releases are named after mountains.
         release = "Big Bear";
