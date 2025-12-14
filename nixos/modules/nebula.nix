@@ -257,7 +257,7 @@ in
     (mkIf (cfg.enable && cfg.tpm2Key != false) {
       # So we pass down PKCS#11 environment variables to Nebula.
       systemd.services."nebula@${cfg.networkName}" = {
-        environment = config.nixpkcs.keypairs.${cfg.networkName}.extraEnv;
+        environment = config.security.pkcs11.keypairs.${cfg.networkName}.extraEnv;
       };
 
       # So Nebula can access the TPM key.
@@ -338,7 +338,7 @@ in
             (if cfg.tpm2Key == true then { } else cfg.tpm2Key)
           ];
         };
-        networking.mesh.nebula.privateKey = mkForce config.nixpkcs.keypairs.${cfg.networkName}.uri;
+        networking.mesh.nebula.privateKey = mkForce config.security.pkcs11.keypairs.${cfg.networkName}.uri;
       }
     ]))
   ];
