@@ -338,7 +338,7 @@ in
             (if cfg.tpm2Key == true then { } else cfg.tpm2Key)
           ];
         };
-        networking.mesh.nebula.privateKey = mkForce config.security.pkcs11.keypairs.${cfg.networkName}.uri;
+        networking.mesh.nebula.privateKey = mkForce "${config.security.pkcs11.keypairs.${cfg.networkName}.uri}&cache-sessions";
       }
     ]))
   ];
